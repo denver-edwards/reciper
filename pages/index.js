@@ -3,21 +3,27 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import svgIcon from "/public/random.svg";
+import randomizeSvgIcon from "/public/random.svg";
+import loadingSvgIcon from "/public/loading.svg";
 
 export default function Recipe() {
   const [url, setUrl] = useState("");
   const [recipe, setRecipe] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchRecipe = async (url) => {
     if (url) {
       try {
+        setIsLoading(true);
+
         const res = await fetch(`/api/scrape?url=${url}`);
         const data = await res.json();
 
         setRecipe(data);
       } catch (error) {
         console.error("Error fetching recipe:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -82,16 +88,32 @@ export default function Recipe() {
                 onClick={() => handleRandomize()}
                 className="absolute inset-y-0 right-0 flex items-center justify-center px-3 rounded-r-lg bg-stone-400 hover:bg-stone-600 transition-colors duration-150 ease-in-out"
               >
-                <Image src={svgIcon} alt="icon" width={24} height={24} />
+                <Image
+                  src={randomizeSvgIcon}
+                  alt="icon"
+                  width={24}
+                  height={24}
+                />
               </button>
             </div>
 
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="w-1/2 bg-stone-500 text-white p-3 rounded-lg hover:bg-stone-600 transition-colors duration-150 ease-in-out"
+                className="w-1/2 bg-stone-500 text-white p-3 rounded-lg hover:bg-stone-600 transition-colors duration-150 ease-in-out flex items-center justify-center"
               >
-                Scrape Recipe
+                {isLoading ? (
+                  <div className="flex items-center justify-center w-full h-full">
+                    <Image
+                      src={loadingSvgIcon}
+                      alt="icon"
+                      width={24}
+                      height={24}
+                    />
+                  </div>
+                ) : (
+                  "Scrape Recipe"
+                )}
               </button>
             </div>
           </form>
