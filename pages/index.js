@@ -5,6 +5,8 @@ import Image from "next/image";
 
 import randomizeSvgIcon from "/public/random.svg";
 import loadingSvgIcon from "/public/loading.svg";
+// import hintIcon from "/public/hint.svg";
+import HintIcon from "@/icons/HintIcon";
 
 export default function Recipe() {
   const [url, setUrl] = useState("");
@@ -70,7 +72,12 @@ export default function Recipe() {
               htmlFor="site"
               className="block text-md font-semibold text-gray-700 mb-2"
             >
-              Enter the recipe link below
+              <span>Enter the recipe link below </span>
+              <HintIcon
+                size={12}
+                fill={"gray"}
+                className="inline hover:fill-black cursor-pointer"
+              />
             </label>
 
             <div className="flex items-center relative">
