@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import randomizeSvgIcon from "/public/random.svg";
-import loadingSvgIcon from "/public/loading.svg";
-// import hintIcon from "/public/hint.svg";
-import HintIcon from "@/icons/HintIcon";
+import RandomIcon from "@/components/icons/RandomIcon";
+import LoadingIcon from "@/components/icons/LoadingIcon";
+import DownloadIcon from "@/components/icons/DownloadIcon";
+import HintIcon from "@/components/icons/HintIcon";
+
+import DownloadPDFButton from "@/components/DownloadPDFButton";
 
 export default function Recipe() {
   const [url, setUrl] = useState("");
@@ -76,7 +78,7 @@ export default function Recipe() {
               <HintIcon
                 size={12}
                 fill={"gray"}
-                className="inline hover:fill-black cursor-pointer"
+                className="inline hover:fill-black cursor-pointer mb-1"
               />
             </label>
 
@@ -95,11 +97,9 @@ export default function Recipe() {
                 onClick={() => handleRandomize()}
                 className="absolute inset-y-0 right-0 flex items-center justify-center px-3 rounded-r-lg bg-stone-400 hover:bg-stone-600 transition-colors duration-150 ease-in-out"
               >
-                <Image
-                  src={randomizeSvgIcon}
-                  alt="icon"
-                  width={24}
-                  height={24}
+                <RandomIcon
+                  size="24"
+                  className={isLoading ? "animate-spin" : ""}
                 />
               </button>
             </div>
@@ -111,12 +111,7 @@ export default function Recipe() {
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center w-full h-full">
-                    <Image
-                      src={loadingSvgIcon}
-                      alt="icon"
-                      width={24}
-                      height={24}
-                    />
+                    <LoadingIcon size="24" />
                   </div>
                 ) : (
                   "Scrape Recipe"
@@ -128,8 +123,10 @@ export default function Recipe() {
 
         {recipe ? (
           <main className="md:max-w-3xl max-w-xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-xl">
-            <h1 className="text-3xl font-bold mb-4 text-gray-800">
-              {recipe.title}
+            <h1 className="text-3xl font-bold mb-4 text-gray-800 flex justify-between items-center">
+              <span>{recipe.title}</span>
+
+              <DownloadPDFButton recipe={recipe} />
             </h1>
 
             <div className="mb-8">

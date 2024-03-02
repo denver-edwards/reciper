@@ -36,7 +36,7 @@ const classNames = {
     ".recipe-steps",
     ".instructions",
     ".wprm-recipe-instruction",
-    ".mntl-sc-block-html",
+    ".comp .mntl-sc-block .mntl-sc-block-html",
     ".o-Method__m-Step",
     "ol.prep-steps li",
     ".kUNDwd p",
