@@ -18,7 +18,11 @@ export default function PDFTemplate({ recipe }) {
         </View>
         <View style={styles.section}>
           <Text style={styles.subtitle}>Instructions</Text>
-          <Text style={styles.text}>{recipe.instructions}</Text>
+          {recipe.instructions.map((instruction, index) => (
+            <Text key={index} style={styles.text}>
+              {index + 1}. {instruction}
+            </Text>
+          ))}
         </View>
       </Page>
     </Document>
@@ -32,19 +36,18 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   section: {
-    margin: 10,
-    padding: 10,
+    padding: 5,
     flexGrow: 1,
   },
   title: {
     fontSize: 24,
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 5,
     fontWeight: "bold",
   },
   subtitle: {
     fontSize: 18,
-    margin: 10,
+    margin: 5,
     fontWeight: "bold",
   },
   text: {
@@ -56,6 +59,13 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   ingredient: {
+    fontSize: 14,
+    marginTop: 5,
+  },
+  instructions: {
+    marginLeft: 15,
+  },
+  instruction: {
     fontSize: 14,
     marginTop: 5,
   },

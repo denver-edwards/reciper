@@ -65,7 +65,7 @@ export async function scrapeRecipe(url) {
     for (let className of classNames.ingredients) {
       if ($(className).length) {
         $(className).each((i, elem) => {
-          ingredients.push($(elem).text().trim());
+          ingredients.push($(elem).text().replace("▢", "").trim());
         });
         break;
       }
